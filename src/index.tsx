@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const Hello: React.FC<{ StrLabel: String }> = (props) => {
-    const [count, setCount] = useState(100);
+    const [count, setCount] = useState(1000);
     const left = useMemo(() => count, [count]);
     const handleClick = useCallback(() => {
         setCount(count + 1);
