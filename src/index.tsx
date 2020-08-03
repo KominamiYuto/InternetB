@@ -30,7 +30,7 @@ const Hello: React.FC<{ StrLabel: String }> = (props) => {
     const AppList = () => {
         let jsxList: React.ReactElement[] = new Array(1);
         for (let i = forAppListCount; i < count; i++) {
-            jsxList.push(<App color={`hsl(${i/10},100%,50%)`} key={i} val={i} dispatch={dispatch} currentCountState={currentCountState}/>)
+            jsxList.push(<App color={`hsl(${i/10},100%,50%)`} backgroundColor={`hsla(${i/10},100%,90%,0.2)`} key={i} val={i} dispatch={dispatch} currentCountState={currentCountState}/>)
         }
         return jsxList;
     }

@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import {Simulate} from "react-dom/test-utils";
 
-const App: React.FC<{ color: string ,val:number,dispatch: React.Dispatch<number>,currentCountState:number}> = (props) => {
+const App: React.FC<{ color: string ,backgroundColor:string,val:number,dispatch: React.Dispatch<number>,currentCountState:number}> = (props) => {
     const [position, setPos] = useState({x:0,y:0,rotate:0,zIndex:0});
     const appCSS = {
         fontsize: 24,
@@ -17,7 +17,7 @@ const App: React.FC<{ color: string ,val:number,dispatch: React.Dispatch<number>
         transitionDuration:"2s",
         transitionTimingFunction:"ease-out",
         backdropFilter:"blur(2px)",
-        backgroundColor:"rgba(0,0,0,0)"
+        backgroundColor:props.backgroundColor
     } as React.CSSProperties;
     const ref = useRef<null|HTMLButtonElement>(null);
     const click = useCallback((e)=>{
