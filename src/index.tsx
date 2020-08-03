@@ -1,27 +1,30 @@
-import React, {FC, ReactElement, useCallback, useEffect, useMemo, useReducer, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useReducer, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const Hello: React.FC<{ StrLabel: String }> = (props) => {
-    const [count, setCount] = useState(1000);
-    const forAppListCount = useMemo(() => count-1000, [count]);
+    const [count, setCount] = useState(500);
+    const forAppListCount = useMemo(() => count - 500, [count]);
     const handleClick = useCallback(() => {
         setCount(count + 1);
     }, [count]);
-    const [currentCountState,dispatch] = useReducer(updateClickedCount,0);
-    function updateClickedCount(currentState:number,addState:number):number{
-        return currentState+addState;
+    const [currentCountState, dispatch] = useReducer(updateClickedCount, 0);
+
+    function updateClickedCount(currentState: number, addState: number): number {
+        return currentState + addState;
     }
+
     const scrollCheck = () => {
         if (window.pageYOffset / window.innerHeight > 2.0) {
             setCount(count + 100);
         }
     };
-    const indexCSS ={
-        display:"flex",
-        flexWrap:"wrap"
+    const indexCSS = {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center"
     } as React.CSSProperties;
     useEffect(() => {
         document.addEventListener("scroll", scrollCheck);
@@ -30,23 +33,26 @@ const Hello: React.FC<{ StrLabel: String }> = (props) => {
     const AppList = () => {
         let jsxList: React.ReactElement[] = new Array(1);
         for (let i = forAppListCount; i < count; i++) {
-            jsxList.push(<App color={`hsl(${i/10},100%,50%)`} backgroundColor={`hsla(${i/10},100%,90%,0.2)`} key={i} val={i} dispatch={dispatch} currentCountState={currentCountState}/>)
+            jsxList.push(<App key={i} val={i} dispatch={dispatch} currentCountState={currentCountState}/>)
         }
         return jsxList;
     }
     return (
         <React.StrictMode>
-                <button onClick={handleClick}>+1する</button>
+            <button onClick={handleClick}>+1する</button>
             <div style={indexCSS}>
-                {AppList()}</div>
+                {AppList()}
+            </div>
         </React.StrictMode>)
 }
-function scrollCheck(){
+
+function scrollCheck() {
     console.log(window.pageYOffset / window.innerHeight);
 }
+
 ReactDOM.render(
     <React.StrictMode>
-        <div onScrollCapture={scrollCheck}></div>
+        <div onScrollCapture={scrollCheck}/>
         <Hello StrLabel={"react"}/>
     </React.StrictMode>,
     document.getElementById('root')
