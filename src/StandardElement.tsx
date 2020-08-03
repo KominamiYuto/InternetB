@@ -1,8 +1,21 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import './App.css';
 
-const StandardElemet: React.FC<{ val: number, dispatch: React.Dispatch<number>, currentCountState: number}> = (props) => {
+const StandardElemet: React.FC<{ val: number, dispatch: React.Dispatch<number>, currentCountState: number, bumbedPack: {isBombed: boolean, setBombed: React.Dispatch<React.SetStateAction<boolean>>}}> = (props) => {
     const [position, setPos] = useState({x: 0, y: 0, rotate: 0, zIndex: 0});
+
+    useMemo(() =>{
+        if(props.bumbedPack.isBombed){
+            let newPos = {
+                x:  (Math.random()-0.5)*1000 + position.x,
+                y:  Math.random()*1000+1000 + position.y,
+                rotate: (Math.random()-0.5)*360 + position.rotate,
+                zIndex: position.zIndex + 1
+            }
+            props.dispatch(1);
+            setPos(newPos);
+        }
+    }, [props.bumbedPack.isBombed]);
     const appCSS = {
         fontsize: 24,
         borderRadius: 5,

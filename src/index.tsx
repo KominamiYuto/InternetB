@@ -6,6 +6,18 @@ import * as serviceWorker from './serviceWorker';
 
 const Hello: React.FC<{ StrLabel: String }> = (props) => {
     const [count, setCount] = useState(500);
+    const [isBombed,setBombed] = useState(false);
+    const bumbedPack = {
+        isBombed:isBombed,
+        setBombed:setBombed
+    };
+    useMemo(() =>{
+        if(bumbedPack.isBombed){
+            window.setTimeout( ()=>{
+                setBombed(false);
+            }, 2000 );
+        }
+    }, [bumbedPack.isBombed]);
     const forAppListCount = useMemo(() => count - 500, [count]);
     const handleClick = useCallback(() => {
         setCount(count + 1);
@@ -33,7 +45,7 @@ const Hello: React.FC<{ StrLabel: String }> = (props) => {
     const AppList = () => {
         let jsxList: React.ReactElement[] = new Array(1);
         for (let i = forAppListCount; i < count; i++) {
-            jsxList.push(<App key={i} val={i} dispatch={dispatch} currentCountState={currentCountState}/>)
+            jsxList.push(<App key={i} val={i} dispatch={dispatch} currentCountState={currentCountState} bumbedPack={bumbedPack}/>)
         }
         return jsxList;
     }
