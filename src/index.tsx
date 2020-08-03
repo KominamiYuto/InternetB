@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useCallback, useEffect, useMemo, useState} from 'react';
+import React, {FC, ReactElement, useCallback, useEffect, useMemo, useReducer, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -6,15 +6,18 @@ import * as serviceWorker from './serviceWorker';
 
 const Hello: React.FC<{ StrLabel: String }> = (props) => {
     const [count, setCount] = useState(1000);
-    const left = useMemo(() => count, [count]);
+    const forAppListCount = useMemo(() => count-1000, [count]);
     const handleClick = useCallback(() => {
         setCount(count + 1);
     }, [count]);
+    const [currentCountState,dispatch] = useReducer(updateClickedCount,0);
+    function updateClickedCount(currentState:number,addState:number):number{
+        return currentState+addState;
+    }
     const scrollCheck = () => {
-        if (window.pageYOffset / window.innerHeight > 0.4) {
-            setCount(count + 10);
+        if (window.pageYOffset / window.innerHeight > 2.0) {
+            setCount(count + 100);
         }
-        console.log(window.pageYOffset / window.innerHeight);
     };
     const indexCSS ={
         display:"flex",
@@ -26,8 +29,8 @@ const Hello: React.FC<{ StrLabel: String }> = (props) => {
     });
     const AppList = () => {
         let jsxList: React.ReactElement[] = new Array(1);
-        for (let i: number = 0; i < count; i++) {
-            jsxList.push(<App color={`hsl(${i/10},100%,50%)`} positionX={0} positionY={0} key={i} val={i}/>)
+        for (let i = forAppListCount; i < count; i++) {
+            jsxList.push(<App color={`hsl(${i/10},100%,50%)`} key={i} val={i} dispatch={dispatch} currentCountState={currentCountState}/>)
         }
         return jsxList;
     }
