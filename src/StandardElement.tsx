@@ -28,7 +28,7 @@ const StandardElemet: React.FC<{ val: number, dispatch: React.Dispatch<number>, 
         transitionDuration: "2s",
         transitionTimingFunction: "ease-out",
         backdropFilter: "blur(2px)",
-        backgroundColor: `hsla(${props.val / 10},100%,90%,0.2)`
+        backgroundColor: `hsla(${props.val / 10},100%,90%,0.3)`
     } as React.CSSProperties;
     const ref = useRef<null | HTMLButtonElement>(null);
     const click = useCallback((e) => {
