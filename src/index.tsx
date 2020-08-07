@@ -36,7 +36,7 @@ const Hello: React.FC<{ StrLabel: String }> = (props) => {
     const indexCSS = {
         display: "flex",
         flexWrap: "wrap",
-        justifyContent: "center"
+        justifyContent: "center",
     } as React.CSSProperties;
     useEffect(() => {
         document.addEventListener("scroll", scrollCheck);
@@ -51,8 +51,7 @@ const Hello: React.FC<{ StrLabel: String }> = (props) => {
     }
     return (
         <React.StrictMode>
-            <button onClick={handleClick}>+1する</button>
-            <div style={indexCSS}>
+            <div style={indexCSS} id={"background"}>
                 {AppList()}
             </div>
         </React.StrictMode>)
@@ -64,8 +63,8 @@ function scrollCheck() {
 
 ReactDOM.render(
     <React.StrictMode>
-        <div onScrollCapture={scrollCheck}/>
         <Hello StrLabel={"react"}/>
+        <div onScrollCapture={scrollCheck}/>
     </React.StrictMode>,
     document.getElementById('root')
 );
