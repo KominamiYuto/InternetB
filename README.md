@@ -1,8 +1,6 @@
 ## MillionClicker
 
-React + Typescriptで作成した。
-
-ボタンを押すとはじける機能を持つ
+React + Typescriptで作成した、ボタンを押すとはじける機能を持つウェブサイト
 
 無限にスクロールができ、無限にボタンを飛ばせる
 
